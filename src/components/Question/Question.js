@@ -7,7 +7,7 @@ const Question = () => {
         <>
             <QuestionHeader />
 
-            <Main classes="flx flx-center">
+            <Main classes="flx flx-center mg-top-lg">
 
                 <QuestionArticle />
 

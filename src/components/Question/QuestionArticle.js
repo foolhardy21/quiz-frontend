@@ -30,7 +30,7 @@ const QuestionArticle = () => {
 
             </div>
 
-            <Text classes="txt-md txt-primary mg-btm-md">
+            <Text classes="txt-md flx flx-center txt-primary mg-btm-md">
                 {questions[quesIndex].ques}
             </Text>
 

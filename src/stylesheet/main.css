@@ -1,0 +1,7 @@
+#header-pg {
+    border-bottom: solid thin var(--clr-off-primary);
+}
+
+#article-ques {
+    width: 40rem;
+}
