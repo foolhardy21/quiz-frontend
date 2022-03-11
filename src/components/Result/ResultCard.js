@@ -1,37 +1,47 @@
 import { Button, Card, Icon, Text } from "../Reusable"
 
-const ResultCard = () => {
+const ResultCard = ({ ques, ans }) => {
 
     return (
         <Card classes="pd-lg pos-relative">
 
-            <Icon class="material-icons txt-err pos-absolute tr-1">
-                clear
+            <Icon classes={`${ques.answer === ans ? 'txt-success' : 'txt-err'} pos-absolute tr-1`}>
+                {`${ques.answer === ans ? 'check' : 'clear'}`}
             </Icon>
 
             <div className="flx flx-maj-start mg-btm-lg">
 
-                <Text classes="txt-cap txt-primary txt-md">q1</Text>
+                <Text classes="txt-cap txt-primary txt-md">
+                    {`q${ques.id}`}
+                </Text>
 
             </div>
 
-            <Text classes="card-txtw-md txt-cap txt-primary txt-md mg-btm-lg">Lorem ipsum dolor sit amet consectetur,
-                adipisicing elit.
-                Deleniti,
-                consequatur.
+            <Text classes="card-txtw-md txt-cap txt-primary txt-md mg-btm-lg">
+                {ques.ques}
             </Text>
 
             <div className="flx flx-column">
 
-                <Button
-                    classes="btn-outlined b-solid b-primary txt-md txt-primary bg-primary mg-btm-xs pd-xs">lorem</Button>
+                {
 
-                <Button classes="btn-solid txt-md txt-secondary bg-success mg-btm-xs pd-xs">lorem</Button>
+                    ques.options.map(option =>
 
-                <Button
-                    classes="btn-outlined b-solid b-primary txt-md txt-primary bg-primary mg-btm-xs pd-xs">lorem</Button>
+                        (option === ques.answer)
 
-                <Button classes="btn-solid txt-md txt-secondary bg-err mg-btm-xs pd-xs">lorem</Button>
+                            ? <Button key={option}
+                                classes="btn-solid txt-md txt-secondary bg-success mg-btm-xs pd-xs">{option}</Button>
+
+                            : (option !== ques.answer && option === ans)
+
+                                ? <Button key={option}
+                                    classes="btn-solid txt-md txt-secondary bg-err txt-md mg-btm-xs pd-xs">{option}</Button>
+
+                                : <Button key={option}
+                                    classes="btn-outlined b-solid b-primary txt-md bg-primary txt-primary txt-md mg-btm-xs pd-xs">{option}</Button>
+
+                    )
+                }
 
             </div>
 

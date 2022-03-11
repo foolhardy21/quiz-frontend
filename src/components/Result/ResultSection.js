@@ -1,20 +1,16 @@
 import { ResultCard } from "./"
+import { questions, answers } from '../../data/index'
 
 const ResultSection = () => {
 
     return (
         <section className="grid grid-maxcols-3">
-
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-
-
+            {
+                questions.map((ques, index) => <ResultCard
+                    key={ques.id}
+                    ques={ques}
+                    ans={answers[index]} />)
+            }
         </section>
     )
 }
