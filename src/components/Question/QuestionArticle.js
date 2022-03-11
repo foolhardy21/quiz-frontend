@@ -4,9 +4,15 @@ import { questions } from '../../data/questions.data'
 
 const QuestionArticle = () => {
     const [quesIndex, setQuesIndex] = useState(0)
+    const [score, setScore] = useState(0)
 
-    function updateQuestion() {
+    function handleOptionClick(e) {
         // update score
+        if (e.target.value === questions[quesIndex].answer) {
+            setScore(s => s + 1)
+        }
+
+        // update question
         if (quesIndex !== questions.length - 1) {
             setQuesIndex(i => i + 1)
         }
@@ -26,7 +32,7 @@ const QuestionArticle = () => {
                     {`q${quesIndex + 1}`}
                 </Text>
 
-                <Text classes="txt-cap txt-primary txt-md">score - 1/5</Text>
+                <Text classes="txt-cap txt-primary txt-md">{`score - ${score}/5`}</Text>
 
             </div>
 
@@ -37,7 +43,8 @@ const QuestionArticle = () => {
             <div className="flx flx-column">
 
                 {
-                    questions[quesIndex].options.map(option => <Button key={option} onClick={updateQuestion}
+                    questions[quesIndex].options.map(option => <Button key={option} onClick={(e) => handleOptionClick(e)}
+                        value={option}
                         classes="btn-txt txt-md txt-primary txt-ucase bg-primary mg-btm-xs pd-xs">{option}</Button>)
                 }
 
