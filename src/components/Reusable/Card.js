@@ -2,7 +2,7 @@
 const Card = (props) => {
 
     return (
-        <article className={`card-dim card-shadow-xs ${props.classes}`}>
+        <article id="article-ques" className={`card-dim card-shadow-xs ${props.classes}`}>
             {props.children}
         </article>
     )
