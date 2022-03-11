@@ -3,7 +3,7 @@ import { ResultCard } from "./"
 const ResultSection = () => {
 
     return (
-        <section class="grid grid-maxcols-3">
+        <section className="grid grid-maxcols-3">
 
             <ResultCard />
             <ResultCard />

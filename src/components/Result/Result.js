@@ -1,3 +1,4 @@
+import { Text } from "../Reusable"
 import { ResultHeader, ResultSection } from "./"
 
 const Result = () => {
@@ -9,7 +10,7 @@ const Result = () => {
 
             <div className="flx flx-column flx-center">
 
-                <p class="txt-primary txt-md txt-cap mg-top-md mg-btm-md">you are a sneakerhead - 4/6</p>
+                <Text classes="txt-primary txt-md txt-cap mg-top-md mg-btm-md">you are a sneakerhead - 4/6</Text>
 
                 <ResultSection />
 

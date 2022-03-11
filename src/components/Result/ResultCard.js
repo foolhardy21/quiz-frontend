@@ -1,26 +1,41 @@
+import { Button, Card, Icon, Text } from "../Reusable"
+
 const ResultCard = () => {
 
     return (
-        <article class="card-dim card-shadow-xs pd-lg pos-relative">
-            <span class="material-icons txt-err pos-absolute tr-1">
+        <Card classes="pd-lg pos-relative">
+
+            <Icon class="material-icons txt-err pos-absolute tr-1">
                 clear
-            </span>
-            <div class="flx flx-maj-start mg-btm-lg">
-                <p class="txt-cap txt-primary txt-md">q1</p>
+            </Icon>
+
+            <div className="flx flx-maj-start mg-btm-lg">
+
+                <Text classes="txt-cap txt-primary txt-md">q1</Text>
+
             </div>
-            <p class="card-txtw-md txt-cap txt-primary txt-md mg-btm-lg">Lorem ipsum dolor sit amet consectetur,
+
+            <Text classes="card-txtw-md txt-cap txt-primary txt-md mg-btm-lg">Lorem ipsum dolor sit amet consectetur,
                 adipisicing elit.
                 Deleniti,
-                consequatur.</p>
-            <div class="flx flx-column">
-                <button
-                    class="btn-outlined b-solid b-primary txt-md txt-primary bg-primary mg-btm-xs pd-xs">lorem</button>
-                <button class="btn-solid txt-md txt-secondary bg-success mg-btm-xs pd-xs">lorem</button>
-                <button
-                    class="btn-outlined b-solid b-primary txt-md txt-primary bg-primary mg-btm-xs pd-xs">lorem</button>
-                <button class="btn-solid txt-md txt-secondary bg-err mg-btm-xs pd-xs">lorem</button>
+                consequatur.
+            </Text>
+
+            <div className="flx flx-column">
+
+                <Button
+                    classes="btn-outlined b-solid b-primary txt-md txt-primary bg-primary mg-btm-xs pd-xs">lorem</Button>
+
+                <Button classes="btn-solid txt-md txt-secondary bg-success mg-btm-xs pd-xs">lorem</Button>
+
+                <Button
+                    classes="btn-outlined b-solid b-primary txt-md txt-primary bg-primary mg-btm-xs pd-xs">lorem</Button>
+
+                <Button classes="btn-solid txt-md txt-secondary bg-err mg-btm-xs pd-xs">lorem</Button>
+
             </div>
-        </article>
+
+        </Card>
     )
 }
 
