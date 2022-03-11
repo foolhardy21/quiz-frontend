@@ -1,0 +1,8 @@
+#pg-header {
+    border-bottom: solid thin var(--clr-off-primary);
+}
+
+.grid-maxcols-3 {
+    gap: 1rem;
+    place-items: center;
+}
