@@ -1,1 +1,1 @@
-export { getBgColor, getTextColor } from './theme.util' 
+export { getBgColor, getTextColor, getIconColor } from './theme.util' 
