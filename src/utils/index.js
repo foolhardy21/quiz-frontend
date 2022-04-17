@@ -1,0 +1,1 @@
+export { getBgColor, getTextColor } from './theme.util' 
