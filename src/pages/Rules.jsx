@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Header } from "components/Reusable"
 import { useTheme } from "contexts"
 import { getBgColor, getTextColor } from "utils"
@@ -39,13 +39,17 @@ const Rules = () => {
                             )
                         }
                     </ul>
+
                     <div className="flx flx-maj-end">
 
-                        <button className="btn-solid bg-success txt-secondary txt-md pd-s txt-ucase">
-                            play
-                        </button>
+                        <Link to={`/${params.category}/questions`}>
+                            <button className="btn-solid bg-success txt-secondary txt-md pd-s txt-ucase">
+                                play
+                            </button>
+                        </Link>
 
                     </div>
+
                 </article>
 
             </section>
