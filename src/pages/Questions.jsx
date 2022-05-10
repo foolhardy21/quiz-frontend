@@ -1,11 +1,10 @@
 import { createRef, useEffect, useRef, useState } from "react"
 import { Navigate, useParams } from "react-router-dom"
 import { Header } from "components/Reusable"
-import { useScore, useTheme } from "contexts"
+import { useScore, useTheme, useQuestions } from "contexts"
 import { getBgColor, getTextColor } from "utils"
 import { questions as questiondata } from "data"
 import styles from './questions.module.css'
-import { useQuestions } from "contexts/questions.context"
 
 const Questions = () => {
     const optionBtnRefs = useRef([])
@@ -72,9 +71,6 @@ const Questions = () => {
                             <div className="flx flx-center mg-btm-xs">
                                 <img srcSet={currentQues?.img} alt='sneaker' className={styles.imgQuestion} />
                             </div>
-                        }
-                        {
-                            // params.category === 'guess' && <div className="flx flx-center mg-xs"><img srcSet={currentQues.img} alt="Sneaker" className={styles.quesImg} /></div>
                         }
                         {
                             currentQues?.options?.map((option, index) =>
