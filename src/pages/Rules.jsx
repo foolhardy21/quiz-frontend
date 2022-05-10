@@ -24,9 +24,7 @@ const Rules = () => {
             className={getBgColor(theme)}
         >
             <Header />
-
             <section className="flx flx-center mg-top-md">
-
                 <article className={`card-dim card-shadow-xs ${theme === 'dark' && 'b-solid b-secondary'} pd-md`}>
                     <ul>
                         {
@@ -39,21 +37,15 @@ const Rules = () => {
                             )
                         }
                     </ul>
-
                     <div className="flx flx-maj-end">
-
                         <Link to={`/${params.category}/questions`}>
                             <button className="btn-solid bg-success txt-secondary txt-md pd-s txt-ucase">
                                 play
                             </button>
                         </Link>
-
                     </div>
-
                 </article>
-
             </section>
-
         </div>
     )
 

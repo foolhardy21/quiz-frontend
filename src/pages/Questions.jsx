@@ -4,6 +4,7 @@ import { Header } from "components/Reusable"
 import { useTheme } from "contexts"
 import { getBgColor, getTextColor } from "utils"
 import { questions } from "data"
+import styles from './questions.module.css'
 
 const Questions = () => {
     const optionBtnRefs = useRef([])
@@ -57,29 +58,24 @@ const Questions = () => {
             }}
             className={getBgColor(theme)}
         >
-
             <Header />
-
             <section className="flx flx-center mg-top-md">
-
                 {
                     <article className="card-dim card-shadow-xs flx flx-column pd-md">
-
                         <p>{score}/{categoryQuestions.length}</p>
-
-                        <p className={`txt-md card-txtw-md ${getTextColor(theme)} txt-cap mg-btm-s`}>
+                        <p className={`txt-md card-txtw-md ${getTextColor(theme)} txt-cap mg-btm-xs`}>
                             {currentQues?.question}
                         </p>
+                        {
+                            params.category === 'guess' && <div className="flx flx-center mg-xs"><img srcSet={currentQues.img} alt="Sneaker" className={styles.quesImg} /></div>
+                        }
                         {
                             currentQues?.options?.map((option, index) =>
                                 <button key={index} ref={optionBtnRefs.current[index]} onClick={() => handleOptionSelect(optionBtnRefs.current[index])} value={option} className="btn-outlined txt-md txt-cap b-solid b-primary pd-xs mg-btm-xs">{option}</button>)
                         }
-
                     </article>
                 }
-
             </section>
-
         </div>
     ) : <p>khatam</p>
 
