@@ -14,11 +14,8 @@ const Home = () => {
             className={getBgColor(theme)}
         >
             <Header />
-
             <Categories />
-
             <p className={`flx flx-center txt-xxlg ${getTextColor(theme)} txt-ucase txt-500`}>play now!</p>
-
         </div>
     )
 }

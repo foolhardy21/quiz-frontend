@@ -1,0 +1,10 @@
+.resultGrid {
+  place-items: center;
+  gap: 1rem;
+  border-top: solid thin var(--clr-off-primary);
+}
+
+.imgQuestion {
+  width: 8rem;
+  height: 8rem;
+}

@@ -1,36 +1,36 @@
 import { createRef, useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Navigate, useParams } from "react-router-dom"
 import { Header } from "components/Reusable"
-import { useTheme } from "contexts"
+import { useScore, useTheme, useQuestions } from "contexts"
 import { getBgColor, getTextColor } from "utils"
-import { questions } from "data"
+import { questions as questiondata } from "data"
 import styles from './questions.module.css'
 
 const Questions = () => {
     const optionBtnRefs = useRef([])
-    const [categoryQuestions, setCategoryQuestions] = useState([])
     const [currentQuestionCounter, setCurrentQuestionCounter] = useState(1)
     const [currentQues, setCurrentQues] = useState({})
-    const [score, setScore] = useState(0)
+    const { questions, setQuestions } = useQuestions()
+    const { score, setScore } = useScore()
     const { theme } = useTheme()
     const params = useParams()
 
     useEffect(() => {
-        setCategoryQuestions(
-            questions
+        setQuestions(
+            questiondata
                 .filter(ques => ques.category === params.category)
                 .map((ques, index) => ({ ...ques, counter: index + 1 }))
         )
     }, [])
 
     useEffect(() => {
-        if (categoryQuestions.length > 0) {
-            setCurrentQues(categoryQuestions.find(ques => ques.counter === currentQuestionCounter))
+        if (questions.length > 0) {
+            setCurrentQues(questions.find(ques => ques.counter === currentQuestionCounter))
         }
-    }, [categoryQuestions])
+    }, [questions])
 
     useEffect(() => {
-        setCurrentQues(categoryQuestions.find(ques => ques.counter === currentQuestionCounter))
+        setCurrentQues(questions.find(ques => ques.counter === currentQuestionCounter))
     }, [currentQuestionCounter])
 
     const handleOptionSelect = ref => {
@@ -51,7 +51,7 @@ const Questions = () => {
 
     optionBtnRefs.current = currentQues?.options?.map((option, i) => optionBtnRefs[i] ?? createRef())
 
-    return currentQuestionCounter <= categoryQuestions.length ? (
+    return currentQuestionCounter !== questions.length ? (
         <div
             style={{
                 minHeight: '100vh'
@@ -62,24 +62,27 @@ const Questions = () => {
             <section className="flx flx-center mg-top-md">
                 {
                     <article className="card-dim card-shadow-xs flx flx-column pd-md">
-                        <p>{score}/{categoryQuestions.length}</p>
-                        <p className={`txt-md card-txtw-md ${getTextColor(theme)} txt-cap mg-btm-xs`}>
+                        <p>{score}/{questions.length}</p>
+                        <p className={`txt-md card-txtw-md ${getTextColor(theme)} txt-cap mg-btm-s`}>
                             {currentQues?.question}
                         </p>
                         {
-                            params.category === 'guess' && <div className="flx flx-center mg-xs"><img srcSet={currentQues.img} alt="Sneaker" className={styles.quesImg} /></div>
+                            currentQues?.img &&
+                            <div className="flx flx-center mg-btm-xs">
+                                <img srcSet={currentQues?.img} alt='sneaker' className={styles.imgQuestion} />
+                            </div>
                         }
                         {
                             currentQues?.options?.map((option, index) =>
-                                <button key={index} ref={optionBtnRefs.current[index]} onClick={() => handleOptionSelect(optionBtnRefs.current[index])} value={option} className="btn-outlined txt-md txt-cap b-solid b-primary pd-xs mg-btm-xs">{option}</button>)
+                                <button key={index} ref={optionBtnRefs.current[index]} onClick={() => handleOptionSelect(optionBtnRefs.current[index])} value={option} className="btn-outlined txt-md txt-cap b-solid b-primary pd-xs mg-btm-xs">
+                                    {option}
+                                </button>)
                         }
                     </article>
                 }
             </section>
         </div>
-    ) : <p>khatam</p>
-
-
+    ) : <Navigate to={`/${params.category}/results`} />
 }
 
 export default Questions
