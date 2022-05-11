@@ -3,8 +3,9 @@ import { Navigate, useParams } from "react-router-dom"
 import { Header } from "components/Reusable"
 import { useScore, useTheme, useQuestions } from "contexts"
 import { getBgColor, getTextColor } from "utils"
-import { questions as questiondata } from "data"
+// import { questions as questiondata } from "data"
 import styles from './questions.module.css'
+const questiondata = []
 
 const Questions = () => {
     const optionBtnRefs = useRef([])

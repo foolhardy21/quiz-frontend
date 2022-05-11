@@ -3,8 +3,8 @@ import { Link, useParams } from "react-router-dom"
 import { Header } from "components/Reusable"
 import { useTheme } from "contexts"
 import { getBgColor, getTextColor } from "utils"
-import { rules } from "data"
-
+// import { rules } from "data"
+const rules = []
 const Rules = () => {
     const [rulesState, setRulesState] = useState({})
     const params = useParams()
