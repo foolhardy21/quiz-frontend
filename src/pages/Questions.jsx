@@ -8,7 +8,7 @@ import { db } from "firebase-config"
 import { query, collection, where, getDocs } from 'firebase/firestore'
 
 const Questions = () => {
-    const [currentQuestionCounter, setCurrentQuestionCounter] = useState(1)
+    const [currentQuestionCounter, setCurrentQuestionCounter] = useState(0)
     const [currentQues, setCurrentQues] = useState({})
     const optionBtnRefs = useRef([])
     const { questions, setQuestions } = useQuestions()
@@ -22,7 +22,7 @@ const Questions = () => {
             const questionsQuery = query(collection(db, 'questions'), where('category', '==', category))
             const questionsDocs = await getDocs(questionsQuery)
             setQuestions(questionsDocs.docs.map((doc, index) => (
-                { counter: index + 1, question: doc._document.data.value.mapValue.fields.question.stringValue, img: doc._document.data.value.mapValue.fields?.img?.stringValue ?? '', answer: doc._document.data.value.mapValue.fields.answer.stringValue, options: doc._document.data.value.mapValue.fields.options.arrayValue.values.map(option => option.stringValue) }
+                { counter: index, question: doc._document.data.value.mapValue.fields.question.stringValue, img: doc._document.data.value.mapValue.fields?.img?.stringValue ?? '', answer: doc._document.data.value.mapValue.fields.answer.stringValue, options: doc._document.data.value.mapValue.fields.options.arrayValue.values.map(option => option.stringValue) }
             )))
         })()
     }, [])
@@ -55,7 +55,7 @@ const Questions = () => {
 
     optionBtnRefs.current = currentQues?.options?.map((option, i) => optionBtnRefs[i] ?? createRef())
 
-    return currentQuestionCounter !== questions.length ? (
+    return currentQuestionCounter < questions.length ? (
         <div
             style={{
                 minHeight: '100vh'
