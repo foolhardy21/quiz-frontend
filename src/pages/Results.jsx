@@ -37,7 +37,7 @@ const Results = () => {
                 <p className='txt-lg txt-primary txt-600 txt-cap mg-btm-s'>correct answers</p>
                 <section className={`grid grid-maxcols-3 ${styles.resultGrid} pd-top-s mg-btm-md`}>
                     {
-                        questions.map(question => <article key={question.id} className="card-dim card-shadow-xs flx flx-column flx-center pd-s">
+                        questions.map(question => <article key={question.counter} className="card-dim card-shadow-xs flx flx-column flx-center pd-s">
                             <p className="card-txtw-s txt-md txt-primary txt-cap mg-btm-xs">{question.question}</p>
                             {
                                 question?.img &&

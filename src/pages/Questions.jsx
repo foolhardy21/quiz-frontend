@@ -21,7 +21,9 @@ const Questions = () => {
             const category = params.category
             const questionsQuery = query(collection(db, 'questions'), where('category', '==', category))
             const questionsDocs = await getDocs(questionsQuery)
-            setQuestions(questionsDocs.docs.map((doc, index) => ({ counter: index + 1, question: doc._document.data.value.mapValue.fields.question.stringValue, answer: doc._document.data.value.mapValue.fields.answer.stringValue, options: doc._document.data.value.mapValue.fields.options.arrayValue.values.map(option => option.stringValue) })))
+            setQuestions(questionsDocs.docs.map((doc, index) => (
+                { counter: index + 1, question: doc._document.data.value.mapValue.fields.question.stringValue, img: doc._document.data.value.mapValue.fields.img.stringValue, answer: doc._document.data.value.mapValue.fields.answer.stringValue, options: doc._document.data.value.mapValue.fields.options.arrayValue.values.map(option => option.stringValue) }
+            )))
         })()
     }, [])
 

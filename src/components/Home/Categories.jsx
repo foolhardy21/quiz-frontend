@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
 import styles from './home.module.css'
 import { db } from 'firebase-config'
-import { fetchImage } from 'utils'
 
 const Categories = () => {
     const [categoriesState, setCategoriesState] = useState([])
@@ -15,16 +14,6 @@ const Categories = () => {
             setCategoriesState(categoriesDocs.docs.map(doc => ({ imgM: doc._document.data.value.mapValue.fields.imgM.stringValue, imgS: doc._document.data.value.mapValue.fields.imgS.stringValue, name: doc._document.data.value.mapValue.fields.name.stringValue })))
         })()
     }, [])
-
-    useEffect(() => {
-        if (categoriesState.length > 0) {
-            categoriesState.map(async category => {
-                const imgM = await fetchImage(category.imgM)
-                const imgS = await fetchImage(category.imgS)
-                return { ...category, imgM, imgS }
-            })
-        }
-    }, [categoriesState])
 
     return (
         <section className={`grid grid-maxcols-3 ${styles.categoryGrid} mg-top-md mg-btm-md`}>
