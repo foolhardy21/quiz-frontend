@@ -3,17 +3,21 @@ import { Link, useParams } from "react-router-dom"
 import { Header } from "components/Reusable"
 import { useTheme } from "contexts"
 import { getBgColor, getTextColor } from "utils"
-import { rules } from "data"
+import { db } from "firebase-config"
+import { query, collection, where, getDocs } from 'firebase/firestore'
 
 const Rules = () => {
-    const [rulesState, setRulesState] = useState({})
+    const [rulesState, setRulesState] = useState([])
     const params = useParams()
     const { theme } = useTheme()
 
     useEffect(() => {
-        const category = params.category
-        const categoryRules = rules.find(rulesSection => rulesSection.category === category)
-        setRulesState(categoryRules)
+        (async () => {
+            const category = params.category
+            const rulesQuery = query(collection(db, 'rules'), where('category', '==', category))
+            const rulesDocs = await getDocs(rulesQuery)
+            setRulesState(rulesDocs.docs[0]._document.data.value.mapValue.fields.rules.arrayValue.values.map(rule => rule.stringValue))
+        })()
     }, [])
 
     return (
@@ -28,12 +32,10 @@ const Rules = () => {
                 <article className={`card-dim card-shadow-xs ${theme === 'dark' && 'b-solid b-secondary'} pd-md`}>
                     <ul>
                         {
-                            rulesState?.rules?.map((rule, index) =>
-
+                            rulesState?.map((rule, index) =>
                                 <li key={index} style={{ listStyle: 'circle' }} className={`${getTextColor(theme)} txt-md txt-cap mg-btm-s`}>
                                     {rule}
                                 </li>
-
                             )
                         }
                     </ul>

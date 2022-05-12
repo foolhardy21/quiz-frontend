@@ -1,13 +1,18 @@
-import { categories } from 'data'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { collection, getDocs } from 'firebase/firestore'
 import styles from './home.module.css'
+import { db } from 'firebase-config'
 
 const Categories = () => {
     const [categoriesState, setCategoriesState] = useState([])
 
     useEffect(() => {
-        setCategoriesState(categories)
+        (async () => {
+            const categoriesCollection = collection(db, 'categories')
+            const categoriesDocs = await getDocs(categoriesCollection)
+            setCategoriesState(categoriesDocs.docs.map(doc => ({ imgM: doc._document.data.value.mapValue.fields.imgM.stringValue, imgS: doc._document.data.value.mapValue.fields.imgS.stringValue, name: doc._document.data.value.mapValue.fields.name.stringValue })))
+        })()
     }, [])
 
     return (
@@ -19,7 +24,7 @@ const Categories = () => {
                     <Link key={category.name} to={`/${category.name}`}>
                         <article className="pos-relative">
 
-                            <img srcSet={category.srcSet} sizes='(max-width: 768px) 250px, 400px' alt='hip hop category' />
+                            <img srcSet={`${category?.imgM} 400w, ${category?.imgS} 250w`} sizes='(max-width: 768px) 250px, 400px' alt='category' />
 
                             <div className={`pos-absolute tl-0 ${styles.overlayDiv} flx flx-center`}>
                                 <p className="txt-secondary txt-lg txt-lcase txt-500">{category.name}</p>

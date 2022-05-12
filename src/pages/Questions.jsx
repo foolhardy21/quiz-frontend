@@ -3,24 +3,28 @@ import { Navigate, useParams } from "react-router-dom"
 import { Header } from "components/Reusable"
 import { useScore, useTheme, useQuestions } from "contexts"
 import { getBgColor, getTextColor } from "utils"
-import { questions as questiondata } from "data"
 import styles from './questions.module.css'
+import { db } from "firebase-config"
+import { query, collection, where, getDocs } from 'firebase/firestore'
 
 const Questions = () => {
-    const optionBtnRefs = useRef([])
-    const [currentQuestionCounter, setCurrentQuestionCounter] = useState(1)
+    const [currentQuestionCounter, setCurrentQuestionCounter] = useState(0)
     const [currentQues, setCurrentQues] = useState({})
+    const optionBtnRefs = useRef([])
     const { questions, setQuestions } = useQuestions()
     const { score, setScore } = useScore()
     const { theme } = useTheme()
     const params = useParams()
 
     useEffect(() => {
-        setQuestions(
-            questiondata
-                .filter(ques => ques.category === params.category)
-                .map((ques, index) => ({ ...ques, counter: index + 1 }))
-        )
+        (async () => {
+            const category = params.category
+            const questionsQuery = query(collection(db, 'questions'), where('category', '==', category))
+            const questionsDocs = await getDocs(questionsQuery)
+            setQuestions(questionsDocs.docs.map((doc, index) => (
+                { counter: index, question: doc._document.data.value.mapValue.fields.question.stringValue, img: doc._document.data.value.mapValue.fields?.img?.stringValue ?? '', answer: doc._document.data.value.mapValue.fields.answer.stringValue, options: doc._document.data.value.mapValue.fields.options.arrayValue.values.map(option => option.stringValue) }
+            )))
+        })()
     }, [])
 
     useEffect(() => {
@@ -51,7 +55,7 @@ const Questions = () => {
 
     optionBtnRefs.current = currentQues?.options?.map((option, i) => optionBtnRefs[i] ?? createRef())
 
-    return currentQuestionCounter !== questions.length ? (
+    return currentQuestionCounter < questions.length ? (
         <div
             style={{
                 minHeight: '100vh'
