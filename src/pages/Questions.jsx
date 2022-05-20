@@ -41,11 +41,11 @@ const Questions = () => {
 
         if (ref.current.value === currentQues.answer) {
             ref.current.style.background = 'var(--clr-success)'
-            setTimeout(() => { ref.current.style.background = 'var(--clr-primary)'; setScore(s => s + 1) }, 1000)
+            setTimeout(() => { ref.current.style.background = ''; setScore(s => s + 1) }, 1000)
 
         } else {
             ref.current.style.background = 'var(--clr-error)'
-            setTimeout(() => ref.current.style.background = 'var(--clr-primary)', 1000)
+            setTimeout(() => ref.current.style.background = '', 1000)
         }
         setTimeout(() => {
             setCurrentQuestionCounter(c => c + 1)
@@ -66,7 +66,7 @@ const Questions = () => {
             <section className="flx flx-center mg-top-md">
                 {
                     <article className="card-dim card-shadow-xs flx flx-column pd-md">
-                        <p>{score}/{questions.length}</p>
+                        <p className={`txt-md ${getTextColor(theme)} txt-cap mg-btm-xs`}>{score}/{questions.length}</p>
                         <p className={`txt-md card-txtw-md ${getTextColor(theme)} txt-cap mg-btm-s`}>
                             {currentQues?.question}
                         </p>
@@ -78,7 +78,7 @@ const Questions = () => {
                         }
                         {
                             currentQues?.options?.map((option, index) =>
-                                <button key={index} ref={optionBtnRefs.current[index]} onClick={() => handleOptionSelect(optionBtnRefs.current[index])} value={option} className="btn-outlined txt-md txt-cap b-solid b-primary pd-xs mg-btm-xs">
+                                <button key={index} ref={optionBtnRefs.current[index]} onClick={() => handleOptionSelect(optionBtnRefs.current[index])} value={option} className={`btn-outlined ${getTextColor(theme)} txt-md txt-cap b-solid ${theme === 'dark' ? 'b-secondary' : ''} b-primary pd-xs mg-btm-xs`}>
                                     {option}
                                 </button>)
                         }
