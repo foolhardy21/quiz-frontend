@@ -66,7 +66,10 @@ const Questions = () => {
             <section className="flx flx-center mg-top-md">
                 {
                     <article className="card-dim card-shadow-xs flx flx-column pd-md">
-                        <p className={`txt-md ${getTextColor(theme)} txt-cap mg-btm-xs`}>{score}/{questions.length}</p>
+                        <div className="flx flx-maj-stretch mg-btm-xs">
+                            <p className={`txt-md ${getTextColor(theme)} txt-cap mg-btm-xs`}>Q.{currentQuestionCounter + 1}</p>
+                            <p className={`txt-md ${getTextColor(theme)} txt-cap mg-btm-xs`}>score - {score}</p>
+                        </div>
                         <p className={`txt-md card-txtw-md ${getTextColor(theme)} txt-cap mg-btm-s`}>
                             {currentQues?.question}
                         </p>
