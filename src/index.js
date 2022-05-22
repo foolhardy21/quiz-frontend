@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { ThemeProvider } from 'contexts'
+import { ThemeProvider, AuthProvider } from 'contexts'
 
 ReactDOM.render(
   <ThemeProvider>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </ThemeProvider>,
   document.getElementById('root')
 );

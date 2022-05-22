@@ -1,6 +1,6 @@
 import { ScoreProvider } from "contexts";
 import { QuestionsProvider } from "contexts/questions.context";
-import { Home, Results, Rules } from "pages";
+import { Home, Results, Rules, Signup } from "pages";
 import Questions from "pages/Questions";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -24,6 +24,7 @@ const App = () => {
             </ScoreProvider>
           </QuestionsProvider>
         } />
+        <Route path='/signup' element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );
