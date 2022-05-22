@@ -3,7 +3,7 @@ import { useAuth, useTheme } from "contexts"
 import { useState } from "react"
 import { getBgColor, getSolidBtnBgColor, getSolidBtnTxtColor, getTextColor } from "utils"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const [signupForm, setSignupForm] = useState({
@@ -16,11 +16,8 @@ const Signup = () => {
         }
     })
     const navigate = useNavigate()
-    const location = useLocation()
     const { theme } = useTheme()
     const { setLoggedInUser } = useAuth()
-
-    const from = location?.state?.from?.pathname || '/'
 
     const handlePasswordTypeChange = (e) => {
         if (e.target.checked) {
@@ -36,10 +33,10 @@ const Signup = () => {
         const auth = getAuth();
         try {
             const authResponse = await createUserWithEmailAndPassword(auth, signupForm.email, signupForm.password)
-            localStorage.setItem('quizUser', authResponse.user)
+            localStorage.setItem('quizUser', JSON.stringify(authResponse.user))
             setLoggedInUser(authResponse.user)
             setSignupForm(f => ({ ...f, alert: ({ message: 'account created', type: 'success' }) }))
-            setTimeout(() => { setSignupForm(f => ({ ...f, alert: ({ message: '', type: '' }) })); navigate(from) }, 2000)
+            setTimeout(() => { setSignupForm(f => ({ ...f, alert: ({ message: '', type: '' }) })); navigate('/') }, 2000)
         } catch (e) {
             setSignupForm(f => ({ ...f, alert: ({ message: e.code.slice(5,).split('-').join(' '), type: 'error' }) }))
             setTimeout(() => setSignupForm(f => ({ ...f, alert: ({ message: '', type: '' }) })), 2000)

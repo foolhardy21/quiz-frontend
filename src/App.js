@@ -1,8 +1,9 @@
 import { ScoreProvider } from "contexts";
 import { QuestionsProvider } from "contexts/questions.context";
-import { Home, Results, Rules, Signup } from "pages";
+import { Home, Login, Results, Rules, Signup } from "pages";
 import Questions from "pages/Questions";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import RequireAuth from "components/RequireAuth";
 
 const App = () => {
 
@@ -10,21 +11,30 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/:category' element={<Rules />} />
+        <Route path='/:category' element={
+          <RequireAuth>
+            <Rules />
+          </RequireAuth>
+        } />
         <Route path='/:category/questions' element={
           <QuestionsProvider>
             <ScoreProvider>
-              <Questions />
+              <RequireAuth>
+                <Questions />
+              </RequireAuth>
             </ScoreProvider>
           </QuestionsProvider>} />
         <Route path='/:category/results' element={
           <QuestionsProvider>
             <ScoreProvider>
-              <Results />
+              <RequireAuth>
+                <Results />
+              </RequireAuth>
             </ScoreProvider>
           </QuestionsProvider>
         } />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
